@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Access panel</title>
+    <title>Central Hub</title>
     <style>
         body {
             margin: 0;
             padding: 0;
-            background-image: url('4-fotor-bg-remover-20231001233953.png'); /* Set the background image */
-            background-size: cover; /* Cover the entire viewport with the background image */
+            background-color: #000; /* Dark background color */
             display: flex;
+            flex-direction: column; /* Change to column layout */
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh; /* Minimum height for the whole viewport */
         }
 
         .container {
@@ -40,25 +40,94 @@
         .button:hover {
             background-color: #555; /* Button background color on hover */
         }
+
+        /* Add styles for the login button */
+        .login-button {
+            margin: 10px;
+            padding: 10px 20px;
+            background-color: #000; /* Black background color */
+            color: #fff; /* White text color */
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        /* Style for the login button on hover */
+        .login-button:hover {
+            background-color: #222; /* Slightly darker black on hover */
+        }
+
+        /* Styles for the login overlay */
+        .overlay {
+            display: none; /* Initially hidden */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent black background */
+            justify-content: center;
+            align-items: center;
+            z-index: 1;
+        }
+
+        .overlay-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
+    <!-- Add the login button at the top -->
     <div class="container">
+        <button class="login-button" onclick="toggleOverlay()">Login</button>
         <div class="button-container">
-            <a href="https://scpsmp.site" class="button">Button 1</a>
-            <button class="button" onclick="disableButton(this)">Button 2</button>
-            <button class="button" onclick="disableButton(this)">Button 3</button>
+            <button class="button" id="button1" onclick="redirectButton1()">Button 1</button>
+            <button class="button" id="button2" onclick="redirectButton2()">Button 2</button>
+        </div>
+    </div>
+
+    <!-- Login Overlay -->
+    <div class="overlay" id="loginOverlay">
+        <div class="overlay-content">
+            <h2>Login</h2>
+            <form onsubmit="return checkLogin()">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username"><br><br>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password"><br><br>
+                <input type="submit" value="Submit">
+            </form>
         </div>
     </div>
 
     <script>
-        function disableButton(button) {
-            button.innerText = "This button does nothing for 15 seconds";
-            button.disabled = true;
-            setTimeout(function () {
-                button.innerText = "Button 2"; // Reset the button text after 15 seconds
-                button.disabled = false;
-            }, 15000); // 15 seconds
+        function toggleOverlay() {
+            var overlay = document.getElementById("loginOverlay");
+            overlay.style.display = (overlay.style.display === "block") ? "none" : "block";
+        }
+
+        function checkLogin() {
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+
+            if (username === "admin" && password === "Trenten111") {
+                alert("Login successful!");
+                toggleOverlay();
+                document.getElementById("button1").onclick = function() {
+                    window.location.href = "https://flowgpt.com/p/dan-110-new-and-updated-jailbreak";
+                };
+                document.getElementById("button2").onclick = function() {
+                    window.location.href = "https://gmail.com";
+                };
+                return false; // Prevent form submission
+            } else {
+                alert("Invalid username or password.");
+                return false; // Prevent form submission
+            }
         }
     </script>
 </body>
