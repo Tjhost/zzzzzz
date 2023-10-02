@@ -81,13 +81,18 @@
     </style>
 </head>
 <body>
-    <!-- Add the login button at the top -->
+    <!-- Three buttons -->
+    <div class="container">
+        <div class="button-container">
+            <button class="button" onclick="window.location.href = 'https://scpsmp.site'">Button 1</button>
+            <button class="button" id="button2" onclick="disableButton(this)">Button 2</button>
+            <button class="button" id="button3" onclick="disableButton(this)">Button 3</button>
+        </div>
+    </div>
+
+    <!-- Login Button -->
     <div class="container">
         <button class="login-button" onclick="toggleOverlay()">Login</button>
-        <div class="button-container">
-            <button class="button" id="button1" onclick="redirectButton1()">Button 1</button>
-            <button class="button" id="button2" onclick="redirectButton2()">Button 2</button>
-        </div>
     </div>
 
     <!-- Login Overlay -->
@@ -117,17 +122,22 @@
             if (username === "admin" && password === "Trenten111") {
                 alert("Login successful!");
                 toggleOverlay();
-                document.getElementById("button1").onclick = function() {
+                document.getElementById("button2").onclick = function() {
                     window.location.href = "https://flowgpt.com/p/dan-110-new-and-updated-jailbreak";
                 };
-                document.getElementById("button2").onclick = function() {
-                    window.location.href = "https://gmail.com";
+                document.getElementById("button3").onclick = function() {
+                    window.location.href = "https://mail.google.com/mail/u/0/#inbox";
                 };
                 return false; // Prevent form submission
             } else {
                 alert("Invalid username or password.");
                 return false; // Prevent form submission
             }
+        }
+
+        function disableButton(button) {
+            button.innerText = "This button does nothing";
+            button.disabled = true;
         }
     </script>
 </body>
