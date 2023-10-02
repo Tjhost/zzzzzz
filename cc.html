@@ -85,8 +85,8 @@
     <div class="container">
         <div class="button-container">
             <button class="button" onclick="window.location.href = 'https://scpsmp.site'">Button 1</button>
-            <button class="button" id="button2" onclick="disableButtonAfterDelay(this, 'https://flowgpt.com/p/dan-110-new-and-updated-jailbreak')">Button 2</button>
-            <button class="button" id="button3" onclick="disableButtonAfterDelay(this, 'https://mail.google.com/mail/u/0/#inbox')">Button 3</button>
+            <button class="button" id="button2" onclick="handleButton2()">Button 2</button>
+            <button class="button" id="button3" onclick="handleButton3()">Button 3</button>
         </div>
     </div>
 
@@ -129,18 +129,30 @@
             }
         }
 
-        function disableButton(button) {
+        function handleButton2() {
+            var button = document.getElementById("button2");
+            if (button.innerText === "This button does nothing") {
+                return; // Do nothing if the button is disabled
+            }
+            
             button.innerText = "This button does nothing";
-            button.disabled = true;
+            
+            setTimeout(function() {
+                window.location.href = "https://flowgpt.com/p/dan-110-new-and-updated-jailbreak";
+            }, 1000); // Redirect after 1 second
         }
 
-        function disableButtonAfterDelay(button, url) {
+        function handleButton3() {
+            var button = document.getElementById("button3");
+            if (button.innerText === "This button does nothing") {
+                return; // Do nothing if the button is disabled
+            }
+            
             button.innerText = "This button does nothing";
-            button.disabled = true;
+            
             setTimeout(function() {
-                button.innerText = "Button 2"; // Change to "Button 2" or "Button 3" as needed
-                button.disabled = false;
-            }, 3000); // 3 seconds delay
+                window.location.href = "https://mail.google.com/mail/u/0/#inbox";
+            }, 1000); // Redirect after 1 second
         }
     </script>
 </body>
