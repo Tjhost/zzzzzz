@@ -85,8 +85,8 @@
     <div class="container">
         <div class="button-container">
             <button class="button" onclick="window.location.href = 'https://scpsmp.site'">Button 1</button>
-            <button class="button" id="button2" onclick="disableButton(this)">Button 2</button>
-            <button class="button" id="button3" onclick="disableButton(this)">Button 3</button>
+            <button class="button" id="button2" onclick="disableButtonAfterDelay(this, 'https://flowgpt.com/p/dan-110-new-and-updated-jailbreak')">Button 2</button>
+            <button class="button" id="button3" onclick="disableButtonAfterDelay(this, 'https://mail.google.com/mail/u/0/#inbox')">Button 3</button>
         </div>
     </div>
 
@@ -122,12 +122,6 @@
             if (username === "admin" && password === "Trenten111") {
                 alert("Login successful!");
                 toggleOverlay();
-                document.getElementById("button2").onclick = function() {
-                    window.location.href = "https://flowgpt.com/p/dan-110-new-and-updated-jailbreak";
-                };
-                document.getElementById("button3").onclick = function() {
-                    window.location.href = "https://mail.google.com/mail/u/0/#inbox";
-                };
                 return false; // Prevent form submission
             } else {
                 alert("Invalid username or password.");
@@ -138,6 +132,15 @@
         function disableButton(button) {
             button.innerText = "This button does nothing";
             button.disabled = true;
+        }
+
+        function disableButtonAfterDelay(button, url) {
+            button.innerText = "This button does nothing";
+            button.disabled = true;
+            setTimeout(function() {
+                button.innerText = "Button 2"; // Change to "Button 2" or "Button 3" as needed
+                button.disabled = false;
+            }, 3000); // 3 seconds delay
         }
     </script>
 </body>
