@@ -8,7 +8,8 @@
         body {
             margin: 0;
             padding: 0;
-            background-color: #000; /* Dark background color */
+            background-image: url('4-fotor-bg-remover-20231001233953.png'); /* Set the background image */
+            background-size: cover; /* Cover the entire viewport with the background image */
             display: flex;
             justify-content: center;
             align-items: center;
@@ -45,9 +46,20 @@
     <div class="container">
         <div class="button-container">
             <a href="https://scpsmp.site" class="button">Button 1</a>
-            <button class="button">Button 2</button>
-            <button class="button">Button 3</button>
+            <button class="button" onclick="disableButton(this)">Button 2</button>
+            <button class="button" onclick="disableButton(this)">Button 3</button>
         </div>
     </div>
+
+    <script>
+        function disableButton(button) {
+            button.innerText = "This button does nothing for 15 seconds";
+            button.disabled = true;
+            setTimeout(function () {
+                button.innerText = "Button 2"; // Reset the button text after 15 seconds
+                button.disabled = false;
+            }, 15000); // 15 seconds
+        }
+    </script>
 </body>
 </html>
